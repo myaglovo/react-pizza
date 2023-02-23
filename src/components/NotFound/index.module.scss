@@ -1,0 +1,15 @@
+.text_center {
+   text-align: center;
+}
+
+.btn {
+   display: inline-block;
+   margin-top: 15px;
+   padding: 12px 24px;
+   background-color: #fe5f1e;
+   color: white;
+   border-radius: 30px;
+   p {
+      color: inherit;
+   }
+}

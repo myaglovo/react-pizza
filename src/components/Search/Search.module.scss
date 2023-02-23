@@ -1,0 +1,23 @@
+.wrapper {
+   overflow: hidden;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   min-width: 300px;
+   margin: 20px 0;
+   border-radius: 30px;
+   border: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+
+.input {
+   padding: 12px 0;
+   border: none;
+   width: 100%;
+   height: 100%;
+}
+
+.icon {
+   margin-left: 14px;
+   color: rgba($color: #000000, $alpha: .6);
+   height: 16px;
+}
