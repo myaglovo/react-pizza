@@ -8,7 +8,6 @@ function PizzaCard({ id, title, price, imageUrl, sizes, types }) {
   const [pickedSize, setPickedSize] = useState(23);
   const [pickedDough, setPickedDough] = useState("тонкое");
   const [currentPrice, setCurrentPrice] = useState();
-  const [basePrice, setBasePrice] = useState(price);
 
   const doughTypes = ["тонкое", "традиционно"];
 
@@ -30,18 +29,17 @@ function PizzaCard({ id, title, price, imageUrl, sizes, types }) {
   const handlerAddToCart = (title, id) => {
     dispatch(
       addToCart({
-        id,
-        amount: 1,
         data: {
+          id,
           title,
+          amount: 1,
           size: pickedSize,
           dough: pickedDough,
+          price: currentPrice,
         },
       })
     );
   };
-
-  // [{id:1, amount: 2, totalPrice: 232, data: {title: "Сырная", doudh: 23, size: 13, price: 322,  amount: 1}}, ...]
 
   const onClickChooseSize = (size) => {
     calculatePrice(price);
@@ -100,7 +98,7 @@ function PizzaCard({ id, title, price, imageUrl, sizes, types }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>{amount.length}</i>
+          {/* <i>{amount.length}</i> */}
         </div>
       </div>
     </div>

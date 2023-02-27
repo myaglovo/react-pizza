@@ -45,4 +45,4 @@ export const {
   selectOrderBy,
 } = filterSlice.actions;
 
-export default filterSlice;
+export default filterSlice.reducer;
