@@ -36,7 +36,7 @@ const pizzasSlice = createSlice({
   },
   reducers: {
     addPizzas: (state, action) => {
-      console.log("----", action.payload);
+      state.pizzas.length = 0;
       state.pizzas.push(...action.payload);
     },
     removePizzas: (state, action) => {},
@@ -47,6 +47,7 @@ const pizzasSlice = createSlice({
       state.error = false;
     },
     [fetchPizzas.fulfilled]: (state, action) => {
+      window.scrollTo(0, 0);
       state.status = "fulfilled";
       state.error = false;
     },

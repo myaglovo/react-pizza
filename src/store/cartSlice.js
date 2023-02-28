@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createTypeReferenceDirectiveResolutionCache } from "typescript";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -25,23 +26,41 @@ const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       const item = state.items.find(
         (item) =>
-          item.id === action.payload.data.id &&
-          item.price === action.payload.data.price
+          item.id === action.payload.id && item.price === action.payload.price
       );
-      if (item) {
-        item.amount -= 1;
+      state.items = state.items.filter((pizza) => pizza !== item);
+    },
+    changeAmountCart: (state, action) => {
+      console.log(action.payload);
+      const item = state.items.find(
+        (item) =>
+          item.id === action.payload.id && item.price === action.payload.price
+      );
+      if (item.amount === 0) {
+        state.items = state.items.filter((pizza) => pizza !== item);
       }
-      state.totalPrice -= action.payload.data.price;
-      state.totalAmount -= 1;
+      if (action.payload.value === "increase") {
+        item.amount += 1;
+        state.totalAmount += 1;
+      } else {
+        if (item.amount === 1) {
+          state.totalAmount -= 1;
+          state.items = state.items.filter((pizza) => pizza !== item);
+        } else {
+          item.amount -= 1;
+          state.totalAmount -= 1;
+        }
+      }
+    },
+    clearCart: (state) => {
+      state.items.length = 0;
+      state.totalPrice = 0;
+      state.totalAmount = 0;
     },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, changeAmountCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
-
-const abc = [
-  { id: 3, data: "sdfs" },
-  { id: 4, data: "sdffs" },
-];

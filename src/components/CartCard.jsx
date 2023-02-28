@@ -1,6 +1,15 @@
 import React from "react";
+import { removeFromCart, changeAmountCart } from "../store/cartSlice";
+import { useDispatch } from "react-redux";
 
-function CartCard({ id, title, dough, amount, price, size, handlerAddToCart }) {
+function CartCard({ id, title, dough, amount, price, size }) {
+  const dispatch = useDispatch();
+
+  const handleChangeAmount = (e) => {
+    const value = e.currentTarget.getAttribute("data-action");
+    dispatch(changeAmountCart({ id, price, value }));
+  };
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -17,7 +26,11 @@ function CartCard({ id, title, dough, amount, price, size, handlerAddToCart }) {
         </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          data-action="decrease"
+          className="button button--outline button--circle cart__item-count-minus"
+          onClick={(e) => handleChangeAmount(e)}
+        >
           <svg
             width="10"
             height="10"
@@ -37,9 +50,8 @@ function CartCard({ id, title, dough, amount, price, size, handlerAddToCart }) {
         </div>
         <b>{amount}</b>
         <div
-          onClick={() =>
-            handlerAddToCart({ id, title, dough, amount, price, size })
-          }
+          data-action="increase"
+          onClick={(e) => handleChangeAmount(e)}
           className="button button--outline button--circle cart__item-count-plus"
         >
           <svg
@@ -64,7 +76,10 @@ function CartCard({ id, title, dough, amount, price, size, handlerAddToCart }) {
         <b>{price * amount} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div
+          onClick={() => dispatch(removeFromCart({ id, price }))}
+          className="button button--outline button--circle"
+        >
           <svg
             width="10"
             height="10"

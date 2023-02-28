@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CartCard from "../components/CartCard";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
+import { addToCart, clearCart } from "../store/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -64,7 +64,10 @@ function Cart() {
                 </svg>
                 Корзина
               </h2>
-              <div className="cart__clear">
+              <div
+                onClick={() => dispatch(clearCart())}
+                className="cart__clear"
+              >
                 <svg
                   width="20"
                   height="20"
@@ -109,7 +112,7 @@ function Cart() {
               {pizzas.map((pizza) => (
                 <CartCard
                   handlerAddToCart={handlerAddToCart}
-                  key={pizza}
+                  key={pizza.id}
                   {...pizza}
                 />
               ))}
